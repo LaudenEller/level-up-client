@@ -14,10 +14,10 @@ export const GameForm = () => {
     */
     const [currentGame, setCurrentGame] = useState({
         skillLevel: 1,
-        numberOfPlayers: 0,
+        number_of_players: "",
         title: "",
         maker: "",
-        gameTypeId: 0
+        game_type_id: 0
     })
 
     useEffect(() => {
@@ -27,7 +27,7 @@ export const GameForm = () => {
 
     const changeGameState = (domEvent) => {
         const copy = { ...currentGame }
-            copy.value = domEvent.target.value
+            copy[domEvent.target.name] = domEvent.target.value
             setCurrentGame(copy)
     }
 
@@ -73,23 +73,13 @@ export const GameForm = () => {
             <fieldset>
                 <div className="form-group">
                 <label htmlFor="game_type">Game Type: 
-                    <select value={currentGame.game_type_id}>
+                    <select value={currentGame.game_type} name="game_type" onChange={changeGameState}>
                     <option value ="0">What Type of Game is this?</option>
                     {gameTypes?.map(gt => <option key={gt.id} value={gt.id}>{gt.label}</option>)}
                     </select>
                     </label>
                 </div>
             </fieldset>
-            {/* <fieldset>
-                <div className="form-group">
-                    <label htmlFor="game_type">Game Type: </label>
-                    <input type="select" name="game_type" required autoFocus className="form-control"
-                        value={currentGame.game_type_id}
-                        onChange={changeGameState}
-                    ><option value ="0">What Type of Game is this?</option>
-                    {gameTypes?.map(gt => <option key={gt.id} value={gt.id}>{gt.label}</option>)}</input>
-                </div>
-            </fieldset> */}
             <button type="submit"
                 onClick={evt => {
                     // Prevent form from being submitted
@@ -98,9 +88,9 @@ export const GameForm = () => {
                     const game = {
                         maker: currentGame.maker,
                         title: currentGame.title,
-                        numberOfPlayers: parseInt(currentGame.numberOfPlayers),
-                        skillLevel: parseInt(currentGame.skillLevel),
-                        gameTypeId: parseInt(currentGame.gameTypeId)
+                        number_of_players: parseInt(currentGame.number_of_players),
+                        skill_level: currentGame.skill_level,
+                        game_type: parseInt(currentGame.game_type)
                     }
 
                     // Send POST request to your API

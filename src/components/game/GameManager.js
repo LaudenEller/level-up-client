@@ -37,5 +37,4 @@ export const updateGame = (game) => {
       },
       body: JSON.stringify(game)
     })
-    // .then(r => r.json())
   };

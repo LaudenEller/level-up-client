@@ -18,18 +18,15 @@ export const EventForm = () => {
         description: "",
         date: "",
         time: "",
-        gameId: 0,
-        organizerId: 0
+        game_id: 0
     })
 
-    useEffect(() => {
-        getGames()
-        .then((d) => setGames(d))
+    useEffect(() => {getGames().then((d) => setGames(d))
     }, [])
 
-    const changeGameState = (domEvent) => {
+    const changeEventState = (domEvent) => {
         const copy = { ...currentEvent }
-            copy.value = domEvent.target.value
+            copy[domEvent.target.name] = domEvent.target.value
             setCurrentEvent(copy)
     }
 
@@ -41,7 +38,7 @@ export const EventForm = () => {
                     <label htmlFor="description">Description: </label>
                     <input type="text" name="description" required autoFocus className="form-control"
                         value={currentEvent.description}
-                        onChange={changeGameState}
+                        onChange={changeEventState}
                     />
                 </div>
             </fieldset>
@@ -50,7 +47,7 @@ export const EventForm = () => {
                     <label htmlFor="date">Date: </label>
                     <input type="date" name="date" required autoFocus className="form-control"
                         value={currentEvent.date}
-                        onChange={changeGameState}
+                        onChange={changeEventState}
                     />
                 </div>
             </fieldset>
@@ -59,14 +56,14 @@ export const EventForm = () => {
                     <label htmlFor="time">Time: </label>
                     <input type="time" name="time" required autoFocus className="form-control"
                         value={currentEvent.time}
-                        onChange={changeGameState}
+                        onChange={changeEventState}
                     />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
                 <label htmlFor="game">Game: 
-                    <select value={currentEvent.game_type_id}>
+                    <select value={currentEvent.game_id} name="game_id" onChange={changeEventState}>
                     <option value ="0">What Game was Played?</option>
                     {games?.map(g => <option key={g.id} value={g.id}>{g.title}</option>)}
                     </select>
@@ -78,11 +75,12 @@ export const EventForm = () => {
                     // Prevent form from being submitted
                     evt.preventDefault()
 
+                    // property of event === column in model on server side, value === properties in useState
                     const event = {
                         description: currentEvent.description,
                         date: currentEvent.date,
                         time: currentEvent.time,
-                        game_id: parseInt(currentEvent.game_id)
+                        game: parseInt(currentEvent.game_id)
                     }
 
                     // Send POST request to your API

@@ -99,7 +99,7 @@ export const UpdateForm = () => {
                     updateGame(updatedGame)
                         .then(() => history.push(`/games/${gameId}`))
                 }}
-                className="btn btn-primary">Create</button>
+                className="btn btn-primary">Update</button>
         </form>
     )
 }

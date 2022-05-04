@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { getEvents } from "./EventManager"
 import { useHistory } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 export const EventList = (props) => {
     const [ events, setEvents ] = useState([])
@@ -21,10 +22,10 @@ const history = useHistory()
         <article className="events">
             {
                 events.map(event => {
-                    return <section key={`event--${event.id}`} className="event">
+                    return <Link to={`/events/${event.id}`} key={`event--${event.id}`} className="event">
                         <div className="event__title">A game of {event.game.title}</div>
                         <div className="event__date">was played on {event.date} at {event.time}</div>
-                    </section>
+                    </Link>
                 })
             }
         </article>

@@ -92,7 +92,7 @@ export const UpdateForm = () => {
                         number_of_players: parseInt(game.number_of_players),
                         skill_level: game.skill_level,
                         game_type: parseInt(game.game_type),
-                        id: parseInt(game.id)
+                        id: game.id
                     }
 
                     // Send POST request to your API

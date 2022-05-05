@@ -81,7 +81,8 @@ export const UpdateEventForm = () => {
                         date: event.date,
                         time: event.time,
                         game: parseInt(event.game),
-                        id: parseInt(event.id)
+                        organizer: event.organizer.user.id,
+                        id: event.id
                     }
 
                     // Send POST request to your API
